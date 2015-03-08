@@ -6,12 +6,12 @@
   "icons": { "128": "icon.png" },
   "content_scripts": [
     {
-      "matches": ["http://www.google.com/*"],
+      "matches": ["http://www.roomguru.ru/*"],
       "css": ["google.css"],
       "js": ["google.js"]
     }
   ],
   "permissions": [
-    "tabs", "http://www.google.com/*"
+    "tabs", "http://www.roomguru.ru/*"
   ]
 }
