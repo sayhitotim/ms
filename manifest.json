@@ -11,14 +11,14 @@
     {
       "matches": ["http://www.roomguru.ru/Hotels/Search*"],
       "css": [
-        "build/serp/hc.css"
+        "build/serp_hc.css"
       ],
       "js": [
         "node_modules/jquery/dist/jquery.js",
         "node_modules/underscore/underscore.js",
         "node_modules/moment/min/moment.min.js",
         "node_modules/react/dist/react.js",
-        "build/serp/hc.js"
+        "build/serp_hc.js"
       ]
     }
   ],
@@ -26,6 +26,6 @@
     "tabs", "http://www.roomguru.ru/Hotels/Search*"
   ],
   "web_accessible_resources": [
-    "build/serp/hc.css"
+    "build/serp_hc.css"
   ]
 }
