@@ -4,11 +4,20 @@
   "manifest_version": 2,
   "description": "Measure metasearch timings.",
   "icons": { "128": "icon.png" },
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
   "content_scripts": [
     {
       "matches": ["http://www.roomguru.ru/Hotels/Search*"],
       "css": ["style.css"],
-      "js": ["jquery.min.js", "underscore.js", "moment.min.js", "hc_serp.js"]
+      "js": [
+        "jquery.min.js", 
+        "underscore.js", 
+        "moment.min.js", 
+        "react-0.12.2.js",
+        "hc_serp.js"
+      ]
     }
   ],
   "permissions": [
