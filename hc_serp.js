@@ -45,7 +45,7 @@ var HcTimer = React.createClass({
   tick: function() {
     var searchTime = moment.duration(moment().diff(this.props.searchStart)),
         hotelDataScripts = _.map(
-            $(".hc_sri script"), 
+            $(".hc_sri script"),
             function(el) {return JSON.parse(el.innerText)}
         );
         total = hotelDataScripts.length,
