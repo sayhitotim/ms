@@ -6,12 +6,12 @@
   "icons": { "128": "icon.png" },
   "content_scripts": [
     {
-      "matches": ["http://www.roomguru.ru/*"],
-      "css": ["google.css"],
-      "js": ["google.js"]
+      "matches": ["http://www.roomguru.ru/Hotels/Search*"],
+      "css": ["style.css"],
+      "js": ["jquery.min.js", "moment.min.js", "hc_serp.js"]
     }
   ],
   "permissions": [
-    "tabs", "http://www.roomguru.ru/*"
+    "tabs", "http://www.roomguru.ru/Hotels/Search*"
   ]
 }

@@ -1,4 +1,4 @@
-console.log('content.js exexuted');
+console.log('hc_serp.js exexuted');
 
 
 function injectScript(source) {
