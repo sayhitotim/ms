@@ -1,0 +1,16 @@
+{
+  "name": "Metasearch",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Measure metasearch timings.",
+  "content_scripts": [
+    {
+      "matches": ["http://www.google.com/*"],
+      "css": ["google.css"],
+      "js": ["google.js"]
+    }
+  ],
+  "permissions": [
+    "tabs", "http://www.google.com/*"
+  ]
+}
