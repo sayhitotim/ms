@@ -2,6 +2,7 @@ console.log('hc_serp.js exexuted');
 
 var HcSerp = {
     init: function() {
+        console.log('HcSerp init');
         if (!$('#hc-stats').length) $('body').prepend('<div id="hc-stats"></div>');
         React.render(<HcTimer />, document.getElementById('hc-stats'));
         $('.hc_paging_btn_prev,.hc_paging_btn_next').on('click', function(e) {
