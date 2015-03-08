@@ -11,6 +11,6 @@
     "stylus": "0.50.0"
   },
   "scripts": {
-    "build": "stylus < style.styl > style.css && jsx -w hc_serp.jsx > hc_serp_timer.js"
+    "build": "stylus < style.styl > style.css && jsx -w hc_serp.jsx > hc_serp.js"
   }
 }

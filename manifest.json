@@ -16,8 +16,7 @@
         "underscore.js", 
         "moment.min.js", 
         "react-0.12.2.js",
-        "hc_serp.js",
-        "hc_serp_timer.js"
+        "hc_serp.js"
       ]
     }
   ],
