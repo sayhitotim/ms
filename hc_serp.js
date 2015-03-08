@@ -1,6 +1,5 @@
 console.log('hc_serp.js exexuted');
 
-
 // function injectScript(source) {
 
 //     var elem = document.createElement("script"); //Create a new script element
@@ -47,7 +46,7 @@ var HC_SERP = {
         }
         
         if ($('#hc_sr_progress').css('display') == 'block') {
-            setTimeout(checkSearchTime, 300);
+            setTimeout(this.checkSearchTime, 300);
         } else if ($('#hc_sr_progress').css('display') == 'none') {
             var duration = moment.duration(moment().diff(this.searchStart));
             console.log('search done in', duration.seconds(), 's');
