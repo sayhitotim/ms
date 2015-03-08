@@ -12,10 +12,10 @@
       "matches": ["http://www.roomguru.ru/Hotels/Search*"],
       "css": ["style.css"],
       "js": [
-        "jquery.min.js", 
-        "underscore.js", 
-        "moment.min.js", 
-        "react-0.12.2.js",
+        "node_modules/jquery/dist/jquery.min.js", 
+        "node_modules/underscore/underscore.js", 
+        "node_modules/moment/min/moment.min.js", 
+        "node_modules/react/dist/react.min.js",
         "hc_serp.js"
       ]
     }
