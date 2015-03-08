@@ -7,27 +7,29 @@ var HcTimer = React.createClass({
       return item.providerName == 'ostrovok.ru';
   },
   tick: function() {
-    var searchTime = moment.duration(moment().diff(this.props.searchStart)),
+    var self = this,
+        searchTime = moment.duration(moment().diff(this.state.searchStart)),
         hotelDataScripts = _.map(
             $(".hc_sri script"),
             function(el) {return JSON.parse(el.innerText)}
         );
         total = hotelDataScripts.length,
         wins = _.filter(hotelDataScripts, function (data) {
-            return data && this.isOstrovok(data[0]);
-        }),
+            return data && self.isOstrovok(data[0]);
+        }).length,
         loses = _.filter(hotelDataScripts, function (data) {
-            return data && !this.isOstrovok(data[0]) && _.any(data, isOstrovok);
-        }),
-        nos = total - wins - loses;
+            return data && !self.isOstrovok(data[0]) && _.any(data, self.isOstrovok);
+        }).length,
+        nos = total - wins - loses,
+        state = {searchTime: searchTime.seconds(), win: wins, lose: loses, no: nos, total: total}
     ;
-    this.setState({searchTime: searchTime.seconds(), win: wins, lose: loses, no: nos, total: total});
+    console.log('state', state);
+    this.setState(state);
 
     if ($('#hc_sr_progress').css('display') == 'block') {
         setTimeout(this.tick, 500);
     } else if ($('#hc_sr_progress').css('display') == 'none') {
         console.log('search done in', searchTime.seconds(), 's');
-        this.colorifyHotels();
     } else {
         console.warn('unknown hc_sr_progress state!', $('#hc_sr_progress').css('display'));
     }
@@ -43,13 +45,13 @@ var HcTimer = React.createClass({
     return (
         <div>
             <div>Search Time: {this.state.searchTime}s.</div>
-            <div>Win: {this.state.win}</div>
-            <div>Lose: {this.state.lose}</div>
-            <div>No: {this.state.no}</div>
+            <div className="hc-green">Win: {this.state.win}</div>
+            <div className="hc-yellow">Lose: {this.state.lose}</div>
+            <div className="hc-red">No: {this.state.no}</div>
             <div>Total: {this.state.total}</div>
         </div>
     );
   }
 });
 
-React.render(<HcTimer />, document.body);
+React.render(<HcTimer />, document.getElementById('hc-stats'));
