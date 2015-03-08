@@ -23,7 +23,7 @@
     }
   ],
   "permissions": [
-    "http://www.roomguru.ru/Hotels/Search*",
+    "http://www.roomguru.ru/Hotels/Search*"
   ],
   "web_accessible_resources": [
     "build/serp_hc.css"
