@@ -7,13 +7,24 @@ var HcSerp = {
         $('.hc_paging_btn_prev,.hc_paging_btn_next').on('click', function(e) {
             setTimeout(this.init, 2000);
         });
+    },
+    percentage: function(a, b) {
+        return Math.round(a / b * 100);
     }
 };
 
 var HcTimer = React.createClass({
     getInitialState: function() {
 
-        return {searchStart: moment(), searchTime: 0, win: [], lose: [], no: [], total: 0};
+        return {
+            searchStart: moment(),
+            searchTime: 0,
+            win: [],
+            lose: [],
+            no: [],
+            total: 0,
+            shareDynamics: []
+        };
     },
     isOstrovok: function (item) {
       return item.providerName == 'ostrovok.ru';
@@ -53,8 +64,17 @@ var HcTimer = React.createClass({
             nos = _.filter(hotelDataScripts, function (data) {
                 return data && !_.any(data, self.isOstrovok);
             }),
-            state = {searchTime: searchTime.seconds(), win: wins, lose: loses, no: nos, total: total}
+            state = {
+                searchTime: searchTime.asSeconds().toFixed(1),
+                win: wins,
+                lose: loses,
+                no: nos,
+                total: total,
+                shareDynamics: this.state.shareDynamics
+            },
+            share = total ? HcSerp.percentage((wins.length + loses.length), total): 0;
         ;
+        state.shareDynamics.push([state.searchTime, share, wins.length + loses.length]);
         console.log('state', state);
         return state;
     },
@@ -79,13 +99,27 @@ var HcTimer = React.createClass({
         // clearInterval(this.interval);
     },
     render: function() {
+        var
+            winPercent = HcSerp.percentage(this.state.win.length, this.state.total),
+            losePercent = HcSerp.percentage(this.state.lose.length, this.state.total),
+            noPercent = HcSerp.percentage(this.state.no.length, this.state.total)
+        ;
+
         return (
             <div>
                 <div>Search Time: {this.state.searchTime}s.</div>
-                <div className="hc-green">Win: {this.state.win.length}</div>
-                <div className="hc-yellow">Lose: {this.state.lose.length}</div>
-                <div className="hc-red">No: {this.state.no.length}</div>
-                <div>Total: {this.state.total}</div>
+                <div className="row">Total Hotels: {this.state.total}</div>
+                <div className="hc-green">Win: {winPercent}% ({this.state.win.length})</div>
+                <div className="hc-yellow">Lose: {losePercent}% ({this.state.lose.length})</div>
+                <div className="row hc-red">No: {noPercent}% ({this.state.no.length})</div>
+                <div className="share-dynamics">
+                    <div>Share Dynamics</div>
+                    {
+                        _.map(this.state.shareDynamics, function(item) {
+                            return (<div>{item[0]}s: {item[1]}% ({item[2]})</div>);
+                        })
+                    }
+                </div>
             </div>
         );
     }
