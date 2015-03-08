@@ -8,7 +8,7 @@
     {
       "matches": ["http://www.roomguru.ru/Hotels/Search*"],
       "css": ["style.css"],
-      "js": ["jquery.min.js", "moment.min.js", "hc_serp.js"]
+      "js": ["jquery.min.js", "underscore.js", "moment.min.js", "hc_serp.js"]
     }
   ],
   "permissions": [
