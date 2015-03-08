@@ -1,9 +1,9 @@
 console.log('hc_serp.js exexuted');
 
 var HcSerp = {
-    init: function(timer) {
+    init: function() {
         if (!$('#hc-stats').length) $('body').prepend('<div id="hc-stats"></div>');
-        React.render(<timer />, document.getElementById('hc-stats'));
+        React.render(<HcTimer />, document.getElementById('hc-stats'));
         $('.hc_paging_btn_prev,.hc_paging_btn_next').on('click', function(e) {
             setTimeout(this.init, 2000);
         });
@@ -22,13 +22,13 @@ var HcTimer = React.createClass({
         var self = this;
         console.log('colorify hotels');
         _.each(this.state.win, function(script) {
-            $(script).closest('.hc_sri').addClass('hc-wins');
+            $(script.el).closest('.hc_sri').addClass('hc-wins');
         });
         _.each(this.state.lose, function(script) {
-            $(script).closest('.hc_sri').addClass('hc-loses');
+            $(script.el).closest('.hc_sri').addClass('hc-loses');
         });
         _.each(this.state.no, function(script) {
-            $(script).closest('.hc_sri').addClass('hc-nos');
+            $(script.el).closest('.hc_sri').addClass('hc-nos');
         });
     },
     getSerpState: function() {
@@ -37,7 +37,11 @@ var HcTimer = React.createClass({
             searchTime = moment.duration(moment().diff(this.state.searchStart)),
             hotelDataScripts = _.map(
                 $(".hc_sri script"),
-                function(el) {return JSON.parse(el.innerText)}
+                function(el) {
+                    var data = JSON.parse(el.innerText);
+                    data.el = el
+                    return data;
+                }
             );
             total = hotelDataScripts.length,
             wins = _.filter(hotelDataScripts, function (data) {
@@ -88,7 +92,7 @@ var HcTimer = React.createClass({
 });
 
 
-HcSerp.init(HcTimer);
+HcSerp.init();
 
 
 // function injectScript(source) {
