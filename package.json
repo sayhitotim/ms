@@ -1,0 +1,16 @@
+{
+  "name": "Metasearch",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.ostrovok.ru/ostrovok/partner.git"
+  },
+  "description": "Ostrovok Metasearch Extension",
+  "devDependencies": {
+    "react-tools": "0.12.2",
+    "stylus": "0.50.0"
+  },
+  "scripts": {
+    "build": "stylus < style.styl > style.css && jsx -w hc_serp.jsx > hc_serp_timer.js"
+  }
+}
