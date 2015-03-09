@@ -15,6 +15,6 @@
     "underscore": "^1.8.2"
   },
   "scripts": {
-    "build": "stylus < serp/hc.styl > build/serp_hc.css && jsx serp/hc.jsx > build/serp_hc.js"
+    "build": "stylus < serp/hc.styl > build/serp_hc.css && jsx serp/hc.jsx > build/serp_hc.js && jsx options/options.jsx > build/options.js"
   }
 }
