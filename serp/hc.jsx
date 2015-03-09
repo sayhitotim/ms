@@ -79,15 +79,18 @@ var HcTimer = React.createClass({
                 total: total,
                 shareDynamics: this.state.shareDynamics
             },
-            share = total ? HcSerp.percentage((wins.length + loses.length), total): 0;
+            share = total ? HcSerp.percentage((wins.length + loses.length), total): 0,
+            lastShare = _.last(this.state.shareDynamics)
         ;
-        state.shareDynamics.push([state.searchTime, share, wins.length + loses.length]);
+        lastShare = lastShare && lastShare[1]
+        if (lastShare !== share) {
+            state.shareDynamics.push([state.searchTime, share, wins.length + loses.length]);
+        }
         console.log('state', state);
         return state;
     },
     tick: function() {
         var state = this.getSerpState();
-        console.log('state', state);
         this.setState(state);
         this.colorifyHotels();
         if ($('#hc_sr_progress').css('display') == 'block') {
