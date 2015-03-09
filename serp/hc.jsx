@@ -37,7 +37,6 @@ var HcTimer = React.createClass({
       return item.providerName == 'ostrovok.ru';
     },
     colorifyHotels: function() {
-        var self = this;
         console.log('colorify hotels');
         _.each(this.state.win, function(script) {
             $(script.el).closest('.hc_sri').addClass('hc-wins');
