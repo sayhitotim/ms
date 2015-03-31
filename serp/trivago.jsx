@@ -10,8 +10,8 @@ var TrivagoSerp = {
             $('body').append('<div id="hc-stats"></div>');
         }
         React.render(<TrivagoTimer />, document.getElementById('hc-stats'));
-        $('.hc_paging_btn_prev,.hc_paging_btn_next').on('click', function(e) {
-            console.log('page click');
+        $('#js_go,.js_page').on('click', function(e) {
+            console.log('page or search click');
             setTimeout($.proxy(obj.init, obj), 2000);
         });
     },
@@ -86,6 +86,7 @@ var TrivagoTimer = React.createClass({
         return state;
     },
     tick: function() {
+        if (!this.isMounted()) return;
         var state = this.getSerpState();
         this.setState(state);
         this.colorifyHotels();
