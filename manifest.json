@@ -9,6 +9,19 @@
   },
   "content_scripts": [
     {
+      "matches": ["http://www.trivago.ru/*"],
+      "css": [
+        "build/serp_hc.css"
+      ],
+      "js": [
+        "node_modules/jquery/dist/jquery.js",
+        "node_modules/underscore/underscore.js",
+        "node_modules/moment/min/moment.min.js",
+        "node_modules/react/dist/react.js",
+        "build/serp_trivago.js"
+      ]
+    },
+    {
       "matches": ["http://www.roomguru.ru/Hotels/Search*"],
       "css": [
         "build/serp_hc.css"

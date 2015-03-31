@@ -1,15 +1,15 @@
 console.log('hc_serp.js exexuted');
 
-var HcSerp = {
+var TrivagoSerp = {
     init: function() {
-        console.log('HcSerp init');
+        console.log('TrivagoSerp init');
         var obj = this;
         if ($('#hc-stats').length) {
             React.unmountComponentAtNode(document.getElementById('hc-stats'));
         } else {
             $('body').append('<div id="hc-stats"></div>');
         }
-        React.render(<HcTimer />, document.getElementById('hc-stats'));
+        React.render(<TrivagoTimer />, document.getElementById('hc-stats'));
         $('.hc_paging_btn_prev,.hc_paging_btn_next').on('click', function(e) {
             console.log('page click');
             setTimeout($.proxy(obj.init, obj), 2000);
@@ -20,7 +20,7 @@ var HcSerp = {
     }
 };
 
-var HcTimer = React.createClass({
+var TrivagoTimer = React.createClass({
     getInitialState: function() {
 
         return {
@@ -34,7 +34,10 @@ var HcTimer = React.createClass({
         };
     },
     isOstrovok: function (item) {
-      return item.providerName == 'ostrovok.ru';
+        var
+            text = $.trim($(item).text());
+        // console.log('CHECK', text, item);
+        return text == 'Ostrovok.ru';
     },
     colorifyHotels: function() {
         console.log('colorify hotels');
@@ -52,23 +55,17 @@ var HcTimer = React.createClass({
 
         var self = this,
             searchTime = moment.duration(moment().diff(this.state.searchStart)),
-            hotelDataScripts = _.map(
-                $(".hc_sri script"),
-                function(el) {
-                    var data = JSON.parse(el.innerText);
-                    data.el = el
-                    return data;
-                }
-            );
-            total = hotelDataScripts.length,
-            wins = _.filter(hotelDataScripts, function (data) {
-                return data && self.isOstrovok(data[0]);
+            hotelPricesEls = $(".item_prices"),
+            total = hotelPricesEls.length,
+            wins = _.filter(hotelPricesEls, function (el) {
+                return self.isOstrovok($(el).find('.partner_name'));
             }),
-            loses = _.filter(hotelDataScripts, function (data) {
-                return data && !self.isOstrovok(data[0]) && _.any(data, self.isOstrovok);
+            loses = _.filter(hotelPricesEls, function (el) {
+                var prices = $(el).find('.hotel_prices em');
+                return !self.isOstrovok(prices[0]) && _.any(prices, self.isOstrovok);
             }),
-            nos = _.filter(hotelDataScripts, function (data) {
-                return data && !_.any(data, self.isOstrovok);
+            nos = _.filter(hotelPricesEls, function (el) {
+                return !_.any($(el).find('.hotel_prices em'), self.isOstrovok);
             }),
             state = {
                 searchTime: searchTime.asSeconds().toFixed(1),
@@ -78,7 +75,7 @@ var HcTimer = React.createClass({
                 total: total,
                 shareDynamics: this.state.shareDynamics
             },
-            share = total ? HcSerp.percentage((wins.length + loses.length), total): 0,
+            share = total ? TrivagoSerp.percentage((wins.length + loses.length), total): 0,
             lastShare = _.last(this.state.shareDynamics)
         ;
         lastShare = lastShare && lastShare[1]
@@ -92,12 +89,8 @@ var HcTimer = React.createClass({
         var state = this.getSerpState();
         this.setState(state);
         this.colorifyHotels();
-        if ($('#hc_sr_progress').css('display') == 'block') {
-            setTimeout(this.tick, 500);
-        } else if ($('#hc_sr_progress').css('display') == 'none') {
-            console.log('search done in', state.searchTime, 's');
-        } else {
-            console.warn('unknown hc_sr_progress state!', $('#hc_sr_progress').css('display'));
+        if (state.searchTime < 30) {
+            setTimeout(this.tick, 1000);
         }
     },
     componentDidMount: function() {
@@ -105,9 +98,9 @@ var HcTimer = React.createClass({
     },
     render: function() {
         var
-            winPercent = HcSerp.percentage(this.state.win.length, this.state.total),
-            losePercent = HcSerp.percentage(this.state.lose.length, this.state.total),
-            noPercent = HcSerp.percentage(this.state.no.length, this.state.total)
+            winPercent = TrivagoSerp.percentage(this.state.win.length, this.state.total),
+            losePercent = TrivagoSerp.percentage(this.state.lose.length, this.state.total),
+            noPercent = TrivagoSerp.percentage(this.state.no.length, this.state.total)
         ;
 
         return (
@@ -130,4 +123,4 @@ var HcTimer = React.createClass({
     }
 });
 
-HcSerp.init();
+TrivagoSerp.init();
